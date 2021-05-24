@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from habit.models import Day, Habit
+
+admin.site.register(Day)
+admin.site.register(Habit)
