@@ -2,8 +2,6 @@ from datetime import timedelta, datetime
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from multiselectfield import MultiSelectField
 
 
@@ -30,7 +28,12 @@ class Day(models.Model):
 
 class Habit(models.Model):
     """
-    Habit model
+    Habit model.
+    Title and description - a few words about habit.
+    days_per_week - days to do habit
+    user - habit author
+    opening, closing - start and end dates
+    term - numbers of days between opening and closing
     """
     ALL = '0'
     MON = '1'
