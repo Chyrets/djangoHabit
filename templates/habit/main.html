@@ -3,7 +3,7 @@
 {% block content %}
 
     {% for task in tasks %}
-        <a href="#">
+        <a href="{% url 'habit' task.pk %}">
             <p>{{ task.title }}</p>
         </a>
     {% endfor %}

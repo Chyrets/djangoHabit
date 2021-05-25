@@ -6,7 +6,7 @@ from django.views import View
 from habit.models import Day, Habit
 
 
-class MainPage(View):
+class MainPageView(View):
     """
     This page display tasks for today
     """
@@ -19,3 +19,20 @@ class MainPage(View):
         }
 
         return render(request, 'habit/main.html', context)
+
+
+class HabitView(View):
+    """
+    Display complete information about the habit
+    """
+
+    def get(self, request, habit_pk, *args, **kwargs):
+        habit = Habit.objects.get(id=habit_pk, user=request.user)
+        days = Day.objects.filter(habit=habit)
+
+        context = {
+            'habit': habit,
+            'days': days
+        }
+
+        return render(request, 'habit/habit.html', context)

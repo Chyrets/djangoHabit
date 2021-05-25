@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <!-- block description -->
+        <div class="col-6">
+            <div>
+                <label for="">Title:</label>
+                <p>
+                    {{ habit.title }}
+                </p>
+            </div>
+            <div>
+                <label for="">Description:</label>
+                <p>
+                    {{ habit.description }}
+                </p>
+            </div>
+        </div>
+        <!-- end block description -->
+
+        <!-- block date -->
+        <div class="col-6">
+            <div>
+                <label for="">Term:</label>
+                <p>
+                    {{ habit.opening }} - {{ habit.closing }}
+                </p>
+            </div>
+            <div>
+                {% for day in days %}
+                    <li>{{ day.date.month }}</li>
+                {% endfor %}
+            </div>
+            <div>
+                {{ habit.term }}
+                {# TODO: add progress from bootstrap #}
+            </div>
+        </div>
+        <!-- end block date -->
+    </div>
+
+{% endblock %}
