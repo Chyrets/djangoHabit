@@ -13,11 +13,14 @@ class Day(models.Model):
     Status - the status of the day.
     """
     SOON = '0'
+    COMPLETED = '1'
+    FAILED = '2'
+    ANOTHER = '3'
     STATUS = (
         (SOON, 'Soon'),
-        ('1', 'Completed'),
-        ('2', 'Failed'),
-        ('3', 'Another')
+        (COMPLETED, 'Completed'),
+        (FAILED, 'Failed'),
+        (ANOTHER, 'Another')
     )
 
     note = models.TextField(max_length=2550, null=True, blank=True)

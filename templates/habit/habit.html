@@ -28,11 +28,39 @@
                     {{ habit.opening }} - {{ habit.closing }}
                 </p>
             </div>
+            <hr>
             <div>
-                {% for day in days %}
-                    <li>{{ day.date.month }}</li>
+                {% for month in months %}
+                    <p>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample-{{ month.unique_month.month }}" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            {{ month.unique_month|date:"F" }}
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapseExample-{{ month.unique_month.month }}">
+                        <div class="card card-body">
+                            {% for day in days %}
+                                {% if day.date.month == month.unique_month.month %}
+                                    <a href="#">
+                                        {{ day.date|date:"M j" }}
+                                        {% if day.status == day.SOON %}
+                                            <nobr style="color:rgb(0,0,255)">Lock</nobr>
+                                        {% elif day.status == day.COMPLETED %}
+                                            <nobr style="color:rgb(0,255,0)">Completed</nobr>
+                                        {% elif day.status == day.FAILED %}
+                                            <nobr style="color:rgb(255,0,0)">Failed</nobr>
+                                        {% else %}
+                                            <nobr style="color:rgb(255,255,0)">Another</nobr>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
+            <hr>
             <div>
                 {{ habit.term }}
                 {# TODO: add progress from bootstrap #}
