@@ -41,3 +41,18 @@ class HabitView(View):
         }
 
         return render(request, 'habit/habit.html', context)
+
+
+class DayView(View):
+    """informathion
+    Display complete information about the day
+    """
+
+    def get(self, request, day_pk, *args, **kwargs):
+        day = Day.objects.get(id=day_pk, habit__user=request.user)
+
+        context = {
+            'day': day
+        }
+
+        return render(request, 'habit/day.html', context)

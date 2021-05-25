@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- block status and date -->
+    <div class="row mt-3">
+        <div class="col-6">
+            <p style="color:rgb(0,0,255)">Lock</p>
+        </div>
+        <div class="col-6">
+            <p style="text-align: right">{{ day.date|date:"M j" }}</p>
+        </div>
+    </div>
+    <!-- end block status and date -->
+    <hr>
+    <!-- block note -->
+    <div>
+        <label>
+            Note:
+            <br>
+            <textarea>{{ day.note }}</textarea>
+        </label>
+    </div>
+    <!-- end block note -->
+    <hr>
+    <!-- block habit -->
+    <div>
+        <p>{{ day.habit.title }}</p>
+    </div>
+    <!-- end block habit -->
+
+{% endblock content %}

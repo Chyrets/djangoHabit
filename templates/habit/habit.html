@@ -42,7 +42,7 @@
                         <div class="card card-body">
                             {% for day in days %}
                                 {% if day.date.month == month.unique_month.month %}
-                                    <a href="#">
+                                    <a href="{% url 'day' day.pk %}">
                                         {{ day.date|date:"M j" }}
                                         {% if day.status == day.SOON %}
                                             <nobr style="color:rgb(0,0,255)">Lock</nobr>
