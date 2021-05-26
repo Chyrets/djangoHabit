@@ -35,10 +35,15 @@ class HabitView(View):
 
         months = days.annotate(unique_month=TruncMonth('date')).values('unique_month').annotate(c=Count('id'))
 
+        progress = datetime.today().date() - habit.opening
+        percent = (progress.days / habit.term) * 100
+
         context = {
             'habit': habit,
             'days': days,
-            'months': months
+            'months': months,
+            'progress': progress,
+            'percent': percent
         }
 
         return render(request, 'habit/habit.html', context)
