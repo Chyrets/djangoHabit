@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
@@ -50,9 +51,23 @@ class DayView(View):
 
     def get(self, request, day_pk, *args, **kwargs):
         day = Day.objects.get(id=day_pk, habit__user=request.user)
+        today = datetime.today().date()
 
         context = {
-            'day': day
+            'day': day,
+            'today': today
         }
 
         return render(request, 'habit/day.html', context)
+
+    def post(self, request, day_pk, *args, **kwargs):
+        day = Day.objects.get(id=day_pk, habit__user=request.user)
+
+        if 'save-status' in request.POST:
+            day.status = request.POST.get('status')[2]
+            day.save()
+        elif 'save-note' in request.POST:
+            day.note = request.POST.get('note')
+            day.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
