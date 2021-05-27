@@ -15,13 +15,24 @@ class MainPageView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        tasks = Habit.objects.filter(day__date=datetime.today(), user=request.user)
+        habits = Habit.objects.filter(day__date=datetime.today(), user=request.user)
 
         context = {
-            'tasks': tasks
+            'habits': habits,
         }
 
         return render(request, 'habit/main.html', context)
+
+
+class AllHabitView(View):
+    """
+    Display list of user habits
+    """
+
+    def get(self, request, *args, **kwargs):
+        habits = Habit.objects.filter(user=request.user)
+
+        return render(request, 'habit/main.html', {'habits': habits})
 
 
 class HabitView(View):
@@ -50,7 +61,7 @@ class HabitView(View):
 
 
 class DayView(View):
-    """informathion
+    """
     Display complete information about the day
     """
 
