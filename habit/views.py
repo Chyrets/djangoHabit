@@ -1,11 +1,13 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 
+from habit.forms import HabitForm
 from habit.models import Day, Habit
 
 
@@ -49,6 +51,9 @@ class HabitView(View):
         progress = datetime.today().date() - habit.opening
         percent = (progress.days / habit.term) * 100
 
+        for x in range(len(habit.days_per_week)):
+            print(habit.days_per_week[x])
+
         context = {
             'habit': habit,
             'days': days,
@@ -87,3 +92,35 @@ class DayView(View):
             day.save()
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class CreateHabitView(View):
+    """
+
+    """
+    form_class = HabitForm
+    template_name = 'habit/create_habit.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+
+        context = {
+            'form': form
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        opening = datetime.strptime(request.POST.get('opening'), '%Y-%m-%d')
+        term = int(request.POST.get('term'))
+        Habit.objects.create(
+            title=request.POST.get('title'),
+            description=request.POST.get('description'),
+            user=request.user,
+            opening=opening,
+            term=term,
+            closing=opening + timedelta(term),
+            days_per_week=request.POST.getlist('days_per_week')
+        )
+
+        return redirect(reverse('main'))
