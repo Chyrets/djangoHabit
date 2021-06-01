@@ -4,7 +4,36 @@
     <form action="" method="post">
         {% csrf_token %}
 
-        {{ form }}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+            {{ form.title.errors }}
+            <label for="{{ form.title.id_for_label }}">Title:</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            {{ form.description.errors }}
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}
+        </div>
+        <div class="mb-3">
+            {{ form.opening.errors }}
+            <label for="{{ form.opening.id_for_label }}">Opening:</label>
+            {{ form.opening }}
+        </div>
+        <div class="mb-3">
+            {{ form.term.errors }}
+            <label for="{{ form.term.id_for_label }}">Term:</label>
+            {{ form.term }}
+        </div>
+        <div class="mb-3">
+            {{ form.days_per_week.errors }}
+            <label for="{{ form.days_per_week.id_for_label }}">Days per week:</label>
+            <br>
+            {% for day in form.days_per_week %}
+                {{ day }}
+                <br>
+            {% endfor %}
+        </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

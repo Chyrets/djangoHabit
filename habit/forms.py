@@ -11,4 +11,11 @@ class HabitForm(forms.ModelForm):
     class Meta:
         model = Habit
         exclude = ['user', 'closing']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': "form-control"}),
+            'description': forms.Textarea(attrs={'class': "form-control"}),
+            'opening': forms.DateInput(attrs={'class': "form-control"}),
+            'term': forms.NumberInput(attrs={'class': "form-control"}),
+            'days_per_week': forms.CheckboxSelectMultiple(attrs={'class': "form-check-input"}),
+        }
 

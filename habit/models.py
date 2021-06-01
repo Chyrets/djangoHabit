@@ -28,6 +28,9 @@ class Day(models.Model):
     date = models.DateField()
     status = models.CharField(max_length=1, choices=STATUS, default=SOON)
 
+    def __str__(self):
+        return f'{self.habit.title} - {self.date}'
+
 
 class Habit(models.Model):
     """
