@@ -2,17 +2,18 @@
 
 {% block content %}
 
-    {% for habit in habits %}
-        <ol class="list-group list-group-numbered mt-3">
-        <a href="{% url 'habit' habit.pk %}">
-            <li class="list-group-item d-flex justify-content-between align-items-start mb-3">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">{{ habit.title }}</div>
-                    {{ habit.description|slice:":77" }}
-                    <p><small>{{ habit.opening }}-{{ habit.closing }}</small></p>
-                </div>
-            </li>
-        </a>
+    {% for task in tasks %}
+        <div class="mt-3">
+            <a href="{% url 'day' task.pk %}">
+                <li class="list-group-item d-flex justify-content-between align-items-start mb-3">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{ task.habit.title }}</div>
+                        {{ task.habit.description|slice:":77" }}
+                        <p><small>{{ task.habit.opening }}-{{ task.habit.closing }}</small></p>
+                    </div>
+                </li>
+            </a>
+        </div>
     {% endfor %}
 
 {% endblock %}
