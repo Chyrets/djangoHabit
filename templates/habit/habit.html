@@ -65,6 +65,12 @@
                  aria-valuemax="100">{{ progress.days }}/{{ habit.term }}
             </div>
         </div>
+        <div class="mt-3">
+            <form method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit" name="delete">Delete</button>
+            </form>
+        </div>
     </div>
 
 {% endblock %}

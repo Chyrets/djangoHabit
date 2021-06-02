@@ -64,6 +64,14 @@ class HabitView(View):
 
         return render(request, 'habit/habit.html', context)
 
+    def post(self, request, habit_pk, *args, **kwargs):
+        habit = Habit.objects.get(id=habit_pk, user=request.user)
+
+        if 'delete' in request.POST:
+            habit.delete()
+
+        return HttpResponseRedirect(reverse('main'))
+
 
 class DayView(View):
     """
